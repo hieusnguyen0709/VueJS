@@ -8,5 +8,6 @@
 </head>
 <body>
     <div id="app"></div>
+    <h1>Test app</h1>
 </body>
 </html>
