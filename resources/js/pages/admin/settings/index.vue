@@ -1,0 +1,1 @@
+<template>Manage Settings</template>
