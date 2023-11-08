@@ -21,9 +21,22 @@
     </a-menu>
 </template>
 <script>
-    import { reactive, h } from 'vue';
+    import { reactive, h, defineComponent } from 'vue';
+    import { storeToRefs } from 'pinia';
+    import { useMenu } from '../stores/use-menu';
     const state = reactive({
         selectedKeys: ['admin-users'],
         openKeys: [''],
+    });
+
+    export default defineComponent({
+        setup() {
+            const store = useMenu();
+            const { selectedKeys, openKeys } = store;
+
+            return {
+                ...storeToRefs(store)
+            };
+        },
     });
 </script>

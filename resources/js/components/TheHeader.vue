@@ -28,9 +28,7 @@
     style="color: red"
     title="List"
     placement="left">
-        <p>Some contents...</p>
-        <p>Some contents...</p>
-        <p>Some contents...</p>
+        <TheMenu />
     </a-drawer>
 
     <a-drawer
@@ -46,10 +44,16 @@
         <p>Some contents...</p>
     </a-drawer>
 </template>
-<script lang="ts" setup>
-    import { ref } from 'vue';
-    const open = ref<boolean>(false);
-    const open_user = ref<boolean>(false);
+<script>
+import TheMenu from "../components/TheMenu.vue";
+import { defineComponent, ref } from "vue";
+export default defineComponent({
+  components: {
+    TheMenu,
+  },
+  setup() {
+    const open = ref(false);
+    const open_user = ref(false);
 
     const showDrawer = () => {
         open.value = true;
@@ -57,4 +61,13 @@
     const showDrawerUser = () => {
         open_user.value = true;
     };
+
+    return {
+      open,
+      open_user,
+      showDrawer,
+      showDrawerUser,
+    };
+  },
+});
 </script>
