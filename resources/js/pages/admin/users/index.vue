@@ -2,7 +2,7 @@
     <a-card title="Account" style="width: 100%">
         <div class="row">
             <div class="col-12">
-                <a-table :dataSource="users" :columns="columns">
+                <a-table :dataSource="users" :columns="columns" :scroll="{ x: 576 }">
                     <template #bodyCell="{ column, index, record }">
                         <template v-if="column.key === 'index'">
                             <span>{{ index + 1 }}</span>
@@ -51,6 +51,7 @@ export default defineComponent({
                 title: 'Department',
                 dataIndex: 'department',
                 key: 'department',
+                responsive: ['sm'],
             },
             {
                 title: 'Role',
@@ -64,6 +65,7 @@ export default defineComponent({
             {
                 title: 'Actions',
                 key: 'actions',
+                fixed: 'right',
             },
         ]
 
