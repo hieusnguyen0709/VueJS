@@ -1,5 +1,14 @@
 <template>
     <a-card title="Account" style="width: 100%">
+        <div class="row md-3">
+            <div class="col-md-12 d-flex justify-content-end">
+                <a-button type="primary">
+                    <router-link :to="{name :'admin-users-create'}">
+                        <i class="fa-solid fa-plus"></i>
+                    </router-link>
+                </a-button>
+            </div>
+        </div>
         <div class="row">
             <div class="col-12">
                 <a-table :dataSource="users" :columns="columns" :scroll="{ x: 576 }">
