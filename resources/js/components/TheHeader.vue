@@ -8,7 +8,7 @@
             </div>
 
             <div class="col-10 col-sm-9 d-flex align-items-center justify-content-center justify-content-sm-start">
-                <img src="assets/img/logo.png" alt="logo" height="32" width="34" class="ms-3 me-3">
+                <img src="/assets/img/logo.png" alt="logo" height="32" width="34" class="ms-3 me-3">
                 <span class="d-none d-sm-flex">Hieu Nguyen</span>
             </div>
 

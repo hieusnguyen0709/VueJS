@@ -1,6 +1,6 @@
 <template>
     <a-card title="Account" style="width: 100%">
-        <div class="row md-3">
+        <div class="row mb-3">
             <div class="col-md-12 d-flex justify-content-end">
                 <a-button type="primary">
                     <router-link :to="{name :'admin-users-create'}">
