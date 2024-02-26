@@ -1,6 +1,6 @@
 <template>
-    <form @submit.prevent="createUsers()">
-        <a-card title="Create" style="witdt: 100%">
+    <form @submit.prevent="">
+        <a-card title="Edit" style="witdt: 100%">
             <div class="row mb-3">
                 <div class="col-12 col-sm-4">
                     <div class="row">
@@ -147,6 +147,16 @@
 
                     <div class="row mb-3">
                         <div class="col-12 col-sm-3 text-start text-sm-end">
+                        </div>
+                        <div class="col-12 col-sm-5">
+                           <a-checkbox v-model:checked="change_password">
+                                Change password
+                            </a-checkbox>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3" v-if="change_password == true">
+                        <div class="col-12 col-sm-3 text-start text-sm-end">
                             <label>
                                 <span class="text-danger me-1">*</span>
                                 <span :class="{
@@ -168,7 +178,7 @@
                         </div>
                     </div>
 
-                    <div class="row mb-3">
+                    <div class="row mb-3" v-if="change_password == true">
                         <div class="col-12 col-sm-3 text-start text-sm-end">
                             <label>
                                 <span class="text-danger me-1">*</span>
@@ -229,47 +239,19 @@ export default defineComponent({
             password: '',
             password_confirmation: '',
             department_id: [],
-            status_id: []
+            status_id: [],
+            change_password: false
         });
         const errors = ref([]);
-
-        const getUsersCreate = () => {
-            axios
-                .get('http://127.0.0.1:8000/api/users/create')
-                .then(function (response) {
-                    users_status.value = response.data.users_status;
-                    departments.value = response.data.departments;
-                })
-                .catch(function (error) {
-                    console.log(error);
-                });
-        };
 
         const filterOption = (input, options) => {
             return options.label.toLowerCase().indexOf(input.toLowerCase()) >= 0;
         };
 
-        const createUsers = () => {
-            axios
-                .post('http://127.0.0.1:8000/api/users', users)
-                .then(function (response) {
-                    if (response) {
-                        message.success('Successfully created!');
-                        router.push({name: 'admin-users'});
-                    }
-                })
-                .catch(function (error) {
-                    errors.value = error.response.data.errors;
-                });
-        }
-
-        getUsersCreate();
-
         return {
             users_status,
             departments,
             filterOption,
-            createUsers,
             ...toRefs(users),
             errors
         }

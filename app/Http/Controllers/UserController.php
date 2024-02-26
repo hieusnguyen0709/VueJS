@@ -55,5 +55,14 @@ class UserController extends Controller
             'password.required' => 'Please fill out this field.',
             'password.confirmed' => 'The password and Password confirmation must match.',
         ]);
+
+        User::create([
+            'status_id' => $request['status_id'],
+            'username' => $request['username'],
+            'name' => $request['name'],
+            'email' => $request['email'],
+            'department_id' => $request['department_id'],
+            'password' => \Hash::make($request['password']),
+        ]);
     }
 }
