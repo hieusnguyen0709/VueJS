@@ -36,4 +36,24 @@ class UserController extends Controller
             'departments' => $departments
         ]);
     }
+
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'status_id' => 'required',
+            'username' => 'required',
+            'name' => 'required',
+            'email' => 'required',
+            'department_id' => 'required',
+            'password' => 'required|confirmed',
+        ], [
+            'status_id.required' => 'Please fill out this field.',
+            'username.required' => 'Please fill out this field.',
+            'name.required' => 'Please fill out this field.',
+            'email.required' => 'Please fill out this field.',
+            'department_id.required' => 'Please fill out this field.',
+            'password.required' => 'Please fill out this field.',
+            'password.confirmed' => 'The password and Password confirmation must match.',
+        ]);
+    }
 }
