@@ -1,5 +1,5 @@
 <template>
-    <form @submit.prevent="">
+    <form @submit.prevent="updateUsers()">
         <a-card title="Edit" style="witdt: 100%">
             <div class="row mb-3">
                 <div class="col-12 col-sm-4">
@@ -222,6 +222,7 @@
 <script>
 import { defineComponent, ref, reactive, toRefs } from 'vue';
 import { useRouter } from 'vue-router';
+import { useRoute } from 'vue-router';
 import { message } from 'ant-design-vue';
 import { useMenu } from '../../../stores/use-menu.js';
 
@@ -230,6 +231,7 @@ export default defineComponent({
         useMenu().onSelectedKeys(["admin-users"]);
 
         const router = useRouter();
+        const route = useRoute();
         const users_status = ref([]);
         const departments = ref([]);
         const users = reactive({
@@ -244,14 +246,49 @@ export default defineComponent({
         });
         const errors = ref([]);
 
+        const getUserEdit = () => {
+            axios
+                .get(`http://127.0.0.1:8000/api/users/${route.params.id}/edit`)
+                .then(function (response) {
+                    users.username = response.data.users.username;
+                    users.name = response.data.users.name;
+                    users.email = response.data.users.email;
+                    users.department_id = response.data.users.department_id;
+                    users.status_id = response.data.users.status_id;
+
+                    users_status.value = response.data.users_status;
+                    departments.value = response.data.departments;
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+        };
+
+        const updateUsers = () => {
+            axios
+                .put(`http://127.0.0.1:8000/api/users/${route.params.id}`, users)
+                .then(function (response) {
+                    if (response) {
+                        message.success('Successfully updated!');
+                        router.push({name: 'admin-users'});
+                    }
+                })
+                .catch(function (error) {
+                    errors.value = error.response.data.errors;
+                });
+        };
+
         const filterOption = (input, options) => {
             return options.label.toLowerCase().indexOf(input.toLowerCase()) >= 0;
         };
+
+        getUserEdit();
 
         return {
             users_status,
             departments,
             filterOption,
+            updateUsers,
             ...toRefs(users),
             errors
         }
